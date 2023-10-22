@@ -1,13 +1,13 @@
-# TemporalGovernor Smart Contract Documentation
+# Temporal Governor Smart Contract Documentation
 
 ## Overview
 
-The TemporalGovernor smart contract is a versatile governance and execution layer designed to be seamlessly integrated into blockchain projects. It leverages the Wormhole bridge as a trusted source of truth for executing actions across different chains. This contract is built to ensure the integrity and security of projects under specific assumptions and conditions.
+The Temporal Governor smart contract is a versatile governance and execution layer designed to be seamlessly integrated into blockchain projects. It leverages the Wormhole bridge as a trusted source of truth for executing actions across different chains. This contract is built to ensure the integrity and security of projects under specific assumptions and conditions.
 
 **Important Assumptions**:
 1. The Wormhole bridge is secure and will not send malicious messages or be deactivated.
-2. The connected blockchain (referred to as "Base") is secure.
-3. Governance on the Base blockchain cannot be compromised.
+  a. The contracts implement a "guardian" function to mitigate the risk of a malicious message in the event of bridge compromise.
+2. The remote Ethereum network (referred to as "Base") is secure.
 
 Should these assumptions be violated, the contract's functionality may be affected. However, the contract incorporates mechanisms to address potential issues arising from these assumptions.
 
@@ -25,7 +25,7 @@ Automation scripts are included to facilitate the use of this contract. These sc
 
 - **Queue Proposal**: [Code](/queue-vaa/src/queue.js) is included to automatically queue a proposal for later execution by detecting the `LogMessagePublished` event from the Wormhole bridge.
 - **Execute Proposal**: [Code](/queue-vaa/src/execute.js) is included to automatically execute a proposal after a configurable delay (24 hours by default) from when the proposal is queued.
-- **Fake Queue**: [Code](/queue-vaa/src/fake-queue.js) is included to manually schedule a queued proposal for future execution. This can be useful for testing purposes, or in the event that a proposal was not automatically queued.
+- **Fake Queue**: [Code](/queue-vaa/src/fakeQueue.js) is included to manually schedule a queued proposal for future execution. This can be useful for testing purposes, or in the event that a proposal was not automatically queued.
 
 **Note**: The automation scripts are not required for the contract to function. They are provided as a quality of life improvement for your community, so that you don't need to manually queue and execute cross-chain proposals.
 
@@ -73,8 +73,12 @@ Automation scripts are included to facilitate the use of this contract. These sc
 
 ## Why This Contract is Important
 
-The TemporalGovernor smart contract is crucial for any blockchain project looking to implement secure cross-chain governance and execution of actions. It can be seamlessly integrated into diverse projects, ensuring trustworthiness and functionality.
+The Temporal Governor smart contract is crucial for any blockchain project looking to implement secure cross-chain governance and execution of actions. It can be seamlessly integrated into diverse projects, ensuring trustworthiness and functionality.
 
 This contract offers the flexibility needed to adapt to various project requirements while safeguarding against potential threats. It allows projects to maintain control over their security and governance, even in the face of unforeseen challenges or compromised governance on connected blockchains.
 
-In summary, the TemporalGovernor contract serves as a robust governance and execution layer that enhances the security and reliability of blockchain projects, making it an invaluable component for a wide range of applications.
+In summary, the Temporal Governor contract serves as a robust governance and execution layer that enhances the security and reliability of blockchain projects, making it an invaluable component for a wide range of applications.
+
+## Security Information
+
+The Temporal Governor smart contracts have been thoroughly audited by [Halborn Security](https://github.com/HalbornSecurity/PublicReports/blob/master/Solidity%20Smart%20Contract%20Audits/Moonwell_Finance_Contracts_V2_Smart_Contract_Security_Assessment_Report_Halborn_Final.pdf) and [Code4rena](https://code4rena.com/reports/2023-07-moonwell). The contracts have also been tested extensively by the Moonwell community and are used to actively govern the Moonwell protocol on Base, an L2 EVM network powered by the [Optimism Stack](https://stack.optimism.io/).
