@@ -20,6 +20,15 @@ Should these assumptions be violated, the contract's functionality may be affect
 - **Guardian Revocation**: The guardian's ability to pause the contract can be revoked, and governance can regain control. This can also unpause the contract if it was paused.
 - **Permissionless Unpausing**: After a certain period, the contract can be unpause automatically without requiring guardian intervention, providing a safeguard against potential malicious actions by the contract owner.
 
+### Other Features
+Automation scripts are included to facilitate the use of this contract. These scripts can be used to automatically queue and execute proposals, as well as manually queue proposals for future execution. These scripts are designed to work with [OpenZeppelin Defender](https://www.openzeppelin.com/defender). You should be able to fully automate cross-chain proposal execution between two Ethereum networks with the "free" tier of Defender.
+
+- **Queue Proposal**: [Code](/queue-vaa/src/queue.js) is included to automatically queue a proposal for later execution by detecting the `LogMessagePublished` event from the Wormhole bridge.
+- **Execute Proposal**: [Code](/queue-vaa/src/execute.js) is included to automatically execute a proposal after a configurable delay (24 hours by default) from when the proposal is queued.
+- **Fake Queue**: [Code](/queue-vaa/src/fake-queue.js) is included to manually schedule a queued proposal for future execution. This can be useful for testing purposes, or in the event that a proposal was not automatically queued.
+
+**Note**: The automation scripts are not required for the contract to function. They are provided as a quality of life improvement for your community, so that you don't need to manually queue and execute cross-chain proposals.
+
 ## Contract Details
 
 ### Contract Addresses and Immutables
